@@ -1,4 +1,4 @@
-import { GET_CHARACTER_START, GET_CHARACTER_SUCCESS } from '../actions';
+import { GET_CHARACTER_START, GET_CHARACTER_SUCCESS, GET_CHARACTER_FAIL, INCREMENT_CHARACTER } from '../actions';
 
 const initialState = {
     id: '',
@@ -8,7 +8,9 @@ const initialState = {
     gender: '',
     status: '',
     image: '',
-    isGettingCharacter: false
+    isGettingCharacter: false,
+    apiID: 1,
+    error: ''
 };
 
 export const characterReducer = (state = initialState, action) => {
@@ -30,6 +32,17 @@ export const characterReducer = (state = initialState, action) => {
                 image: action.payload.image,
                 isGettingCharacter: false
             }
+            case GET_CHARACTER_FAIL:
+                return {
+                    ...state,
+                    error: action.payload,
+                    isGettingCharacter: false
+                }
+            case INCREMENT_CHARACTER:
+                return {
+                    ...state,
+                    apiID: state.apiID + 1
+                }
 
         default:
             return state
